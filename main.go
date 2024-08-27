@@ -27,18 +27,19 @@ func defineRoutes(e *echo.Echo) {
 
 // rootHandler handles the root URL
 func rootHandler(c echo.Context) error {
+	//TODO: Implement root logic here
 	isTls := c.IsTLS()
 	return c.String(http.StatusOK, fmt.Sprintf("Is TLS: %v", isTls))
 }
 
 // updateSwitchHandler handles the update switch request
 func updateSwitchHandler(c echo.Context) error {
-	// Implement your update logic here
+	//TODO: Implement update logic here
 	return c.String(http.StatusOK, "Switch updated")
 }
 
 // getSwitchHandler handles the get switch request
 func getSwitchHandler(c echo.Context) error {
-	// Implement your get logic here
+	//TODO: Implement get logic here
 	return c.String(http.StatusOK, "Switch details")
 }
