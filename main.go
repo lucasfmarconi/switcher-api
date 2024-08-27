@@ -8,27 +8,37 @@ import (
 )
 
 func main() {
+	// Create a new Echo instance
 	echoInstance := echo.New()
-	echoInstance.GET("/", func(c echo.Context) error {
-		isTls := c.IsTLS()
 
-		return c.String(http.StatusOK, fmt.Sprintf("Is TLS: %v", isTls))
-	})
+	// Define routes
+	defineRoutes(echoInstance)
 
-	echoInstance.POST("/switch/:id", updateSwitch)
-	echoInstance.GET("/switch/:id", getSwitch)
-
+	// Start the server
 	echoInstance.Logger.Fatal(echoInstance.Start(":8080"))
 }
 
-func updateSwitch(c echo.Context) error {
-	// Implement your update logic here
-	return c.String(http.StatusOK, "Switch updated")
-
+// defineRoutes sets up the routes for the Echo instance
+func defineRoutes(e *echo.Echo) {
+	e.GET("/", rootHandler)
+	e.POST("/switch/:id", updateSwitchHandler)
+	e.GET("/switch/:id", getSwitchHandler)
 }
 
-func getSwitch(c echo.Context) error {
-	// Implement your update logic here
-	return c.String(http.StatusOK, fmt.Sprintf("Switch Id: %v", c.Param("id")))
+// rootHandler handles the root URL
+func rootHandler(c echo.Context) error {
+	isTls := c.IsTLS()
+	return c.String(http.StatusOK, fmt.Sprintf("Is TLS: %v", isTls))
+}
 
+// updateSwitchHandler handles the update switch request
+func updateSwitchHandler(c echo.Context) error {
+	// Implement your update logic here
+	return c.String(http.StatusOK, "Switch updated")
+}
+
+// getSwitchHandler handles the get switch request
+func getSwitchHandler(c echo.Context) error {
+	// Implement your get logic here
+	return c.String(http.StatusOK, "Switch details")
 }
