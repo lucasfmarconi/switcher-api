@@ -1,4 +1,4 @@
-module switcher.api
+module github.com/lucasfmarconi/switcher-api
 
 go 1.23.0
 
