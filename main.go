@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/lucasfmarconi/switcher-api/controllers"
+	"github.com/lucasfmarconi/switcher-api/Controllers"
 )
 
 func main() {
@@ -18,7 +18,7 @@ func main() {
 
 // defineRoutes sets up the routes for the Echo instance
 func defineRoutes(e *echo.Echo) {
-	e.GET("/", controllers.RootHandler)
-	e.POST("/switch", controllers.UpdateSwitchHandler)
-	e.GET("/switch/:id", controllers.GetSwitchHandler)
+	e.GET("/", Controllers.RootHandler)
+	e.POST("/switch", Controllers.UpdateSwitchHandler)
+	e.GET("/switch/:id", Controllers.GetSwitchHandler)
 }
