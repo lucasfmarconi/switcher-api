@@ -18,31 +18,26 @@ type Switch struct {
 
 // UpdateSwitchHandler handles the update switch request
 func UpdateSwitchHandler(c echo.Context) error {
-    var sw Switch
-    if err := c.Bind(&sw); err != nil {
+    var switchInstance Switch
+    if err := c.Bind(&switchInstance); err != nil {
         return c.String(http.StatusBadRequest, "Invalid request payload")
     }
 
-    CacheServices.SetCache(sw.Key, fmt.Sprintf("%t", sw.Value))
+    CacheServices.SetCache(switchInstance.Key, fmt.Sprintf("%t", switchInstance.Value))
 
     // Construct the URL for the created resource
-    resourceURL := fmt.Sprintf("%s%s/%s", c.Request().Host, c.Request().RequestURI, sw.Key)
+    resourceURL := fmt.Sprintf("%s%s/%s", c.Request().Host, c.Request().RequestURI, switchInstance.Key)
 
     // Return the key and the URL of the created resource
     return c.JSON(http.StatusAccepted, map[string]string{
-        "key": sw.Key,
+        "key": switchInstance.Key,
         "url": resourceURL,
     })
 }
 
 // GetSwitchHandler handles the get switch request
 func GetSwitchHandler(c echo.Context) error {
-	/// TODO: Implement get logic here
-    sw := Switch{
-        Key:       "exampleKey",
-        Value:     true,
-        ExpiresIn: 24 * time.Hour,
-    }
-
-    return c.JSON(http.StatusOK, sw)
+    // Get Switch Struct object from cache
+    switchInstance := CacheServices.GetCache(c.Param("key"))
+    return c.JSON(http.StatusOK, switchInstance)
 }

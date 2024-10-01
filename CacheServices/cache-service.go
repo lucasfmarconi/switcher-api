@@ -8,22 +8,30 @@ import (
 	"github.com/allegro/bigcache/v3"
 )
 
-func SetCache(key, value string) {
-	cache, _ := bigcache.New(context.Background(), bigcache.DefaultConfig(10 * time.Minute))
+//Define a global property to hold the cache instance
+var globalcache *bigcache.BigCache
 
-	cacheSetResult := cache.Set(key, []byte(value))
+func init() {
+    // Initialize the cache and assign it to the global variable
+	var err error
+	cache, _ := bigcache.New(context.Background(), bigcache.DefaultConfig(10 * time.Minute))
+	if err != nil {
+        panic(err)
+    }
+	globalcache = cache
+}
+
+func SetCache(key, value string) {
+
+	cacheSetResult := globalcache.Set(key, []byte(value))
 	if cacheSetResult != nil {
 		fmt.Println(string("Error setting cache: " + cacheSetResult.Error()))
 		return 
 	}
-
-	entry, _ := cache.Get(key)
-	fmt.Println(string(entry))
+	fmt.Println(key + " - cached successfully")
 }
 
 func GetCache(key string) string {
-	cache, _ := bigcache.New(context.Background(), bigcache.DefaultConfig(10 * time.Minute))
-
-	entry, _ := cache.Get(key)
+	entry, _ := globalcache.Get(key)
 	return string(entry)
 }

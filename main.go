@@ -20,5 +20,5 @@ func main() {
 func defineRoutes(e *echo.Echo) {
 	e.GET("/", Controllers.RootHandler)
 	e.POST("/switch", Controllers.UpdateSwitchHandler)
-	e.GET("/switch/:id", Controllers.GetSwitchHandler)
+	e.GET("/switch/:key", Controllers.GetSwitchHandler)
 }
