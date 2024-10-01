@@ -6,6 +6,8 @@ import (
 	"time"
 
 	"github.com/labstack/echo/v4"
+
+	"github.com/lucasfmarconi/switcher-api/Cache/Cacheservices"
 )
 
 type Switch struct {
@@ -21,7 +23,7 @@ func UpdateSwitchHandler(c echo.Context) error {
         return c.String(http.StatusBadRequest, "Invalid request payload")
     }
 
-    // TODO: Implement update logic here
+    Cacheservices.SetCache(sw.Key, fmt.Sprintf("%t", sw.Value))
 
     // Construct the URL for the created resource
     resourceURL := fmt.Sprintf("%s%s/%s", c.Request().Host, c.Request().RequestURI, sw.Key)
