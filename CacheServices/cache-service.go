@@ -31,7 +31,13 @@ func SetCache(key, value string) {
 	fmt.Println(key + " - cached successfully")
 }
 
-func GetCache(key string) string {
-	entry, _ := globalcache.Get(key)
-	return string(entry)
+func GetCache(key string) (string, error) {
+	entry, err := globalcache.Get(key)
+	if err != nil {
+		return "", fmt.Errorf("key not found: %w", err)
+	}
+	if entry == nil {
+		return "", fmt.Errorf("key not found")
+	}
+	return string(entry), nil
 }

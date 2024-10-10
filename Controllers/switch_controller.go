@@ -38,6 +38,10 @@ func UpdateSwitchHandler(c echo.Context) error {
 // GetSwitchHandler handles the get switch request
 func GetSwitchHandler(c echo.Context) error {
     // Get Switch Struct object from cache
-    switchInstance := CacheServices.GetCache(c.Param("key"))
+    key := c.Param("key")
+    switchInstance, err := CacheServices.GetCache(key)
+    if err != nil {
+        return c.String(http.StatusNotFound, "Key not found")
+    }
     return c.JSON(http.StatusOK, switchInstance)
 }
