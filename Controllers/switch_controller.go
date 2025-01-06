@@ -7,7 +7,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	"github.com/lucasfmarconi/switcher-api/CacheServices"
+	"switcher-api/CacheServices"
 )
 
 type Switch struct {

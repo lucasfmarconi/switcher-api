@@ -1,8 +1,9 @@
 package main
 
 import (
+	"switcher-api/Controllers"
+
 	"github.com/labstack/echo/v4"
-	"github.com/lucasfmarconi/switcher-api/Controllers"
 )
 
 func main() {
